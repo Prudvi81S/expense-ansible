@@ -13,8 +13,11 @@
   
   - name: install nodejs
     ansible.builtin.package:
-      name: nodejs
+      name: "{{ item }}"
       state: present
+    loop:
+    - nodejs
+    - mysql
 
   - name: create expense login_user
     ansible.builtin.user:
@@ -51,7 +54,7 @@
       name:
       - pymysql
       executable: pip3.9
-      
+
   - name: import mysql data
     community.mysql.mysql_db:
       login_user: root
